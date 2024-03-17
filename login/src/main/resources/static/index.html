@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-12-sm-6 col-md-4 text-center mx-auto mt-5">
+                <form>
+                    <div class="form-group">
+                        <label for="userId">User ID</label>
+                        <input type="text" class="form-control" id="userId" placeholder="User ID">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" placeholder="Password">
+                    </div>
+                    <button id="btnSubmit" type="button" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+<script>
+    var userID, password, btnSubmit;
+    window.addEventListener("DOMContentLoaded", (e)=>{
+        userId = document.getElementById("userId");
+        password = document.getElementById("password");
+        btnSubmit = document.getElementById("btnSubmit");
+
+        btnSubmit.addEventListener("click",(e)=>{
+            var userId = document.getElementById("userId").value; // Get user's login id from form input
+            var password = document.getElementById("password").value; // Get user's password from form input
+            var login = {}; // Create a JavaScript Object
+            login.userId = userId; // Add the userId to the Object
+            login.password = password; // Add the password to the Object
+            fetch("/login", { // Call the resource (aka endpoint / route)
+                method: "POST", // Tell the server this is a post
+                body: JSON.stringify(login), // Serialize the JavaScript Object "user"
+                headers: {"Content-Type": "application/json"} // Tell the server we're sending JSON
+            }).then((response)=> { // httpservletresponse Promise returned
+                return response.json(); // return Promise containing JSON
+            }).then((Response)=> { // JSON Object returned
+                alert(Response.messageType + " " + Response.message); // Print toString version of JSON Object
+            }).catch((error)=>{ // Return Error Promise on error
+                alert(Response.messageType + " " + Response.message); // Print error if it exists
+            });
+        });
+    });
+</script>
+</body>
+</html>

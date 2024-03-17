@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>W3L2</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+  <form id="form" class="mt-5">
+    <div class="row">
+      <div class="col-12 col-md-3 form group">
+        <label for="firstName">First Name</label>
+          <input id="firstName" class ="form-control" type="text"/>
+      </div>
+        <div class="col-12 col-md-3 form group">
+            <label for="lastName">Last Name</label>
+            <input id="lastName" class ="form-control" type="text"/>
+        </div>
+    </div>
+      <div class="row">
+          <div class="col-sm-3">
+              <button class="btn btn-primary" id="btnSubmit" type="button">
+                  Submit
+              </button>
+          </div>
+      </div>
+  </form>
+    <div class="row mt-4">
+        <div class="col-12 col-md-6">
+            <table class="table table-striped table-hover table-bordered">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                </tr>
+                </thead>
+                <tbody id="tbody">
+                    <td colspan="3">No Records Found</td>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+    // TODO (1):
+    // Declare a variable here to represent "tbody"
+    // Name the variable tbody
+    // (Do not initialize the variable):
+    let tbody;
+    let form, firstNameInput, lastNameInput, btnSubmit;
+    let studentArray = [];
+    window.addEventListener("DOMContentLoaded", ()=>{
+        form = document.getElementById("form");
+        firstNameInput = document.getElementById("firstName");
+        lastNameInput = document.getElementById("lastName");
+        btnSubmit = document.getElementById("btnSubmit");
+// TODO (2):
+// Initialize the tbody variable here (do not declare here):
+        tbody = document.getElementById("tbody")
+        btnSubmit = document.getElementById("btnSubmit");
+        btnSubmit.addEventListener("click", ()=>{
+            let firstName = firstNameInput.value;
+            let lastName = lastNameInput.value;
+// Check if firstName and lastName are proper length
+// and then add them to the student array separated
+// by a comma.
+            if (firstName.length > 1 && lastName.length > 1) {
+                studentArray.push(firstName+","+lastName);
+                addStudentsToTable();
+            }
+        });
+    });
+    /**
+     * Add Users to Table
+     * @param firstName
+     * @param lastName
+     */
+    function addStudentsToTable() {
+// Step 1. Delete all contents inside tbody.
+// Do not delete tbody!!!!!!!
+        tbody.innerHTML = "";
+// Reference the lecture notes on how to empty an element.
+// TODO (3):
+// Set the student ID to 1
+        let studentId = 1;
+// Step 2. Loop through the studentArray.Once you have a
+// "studentName" from the array, split on comma.
+// For example:
+// for (let i=0; i < studentArray; i++) {
+// let studentName = studentArray[i];
+// let nameArray = studentName.split(",");
+// }
+// The first name will be index 0 of nameArray
+// The last name will be index 1 of nameArray
+        for (let i=0; i < studentArray.length; i++) {
+// TODO (4): Create a variable called "studentName" and add the current student's name
+// to the variable:
+            let studentName = studentArray[i];
+// TODO (5): Create nameArray (based on splitting the student name by a comma):
+            let nameArray = studentName.split(",");
+// TODO (6): Declare and initialize the variable named "firstName":
+            let firstName = nameArray[0];
+// TODO (7): Declare and initialize the variable named "lastName":
+            let lastName = nameArray[1];
+// ***********************************************************************
+// Step 3. While inside the loop create the elements below. If you need to
+// create a real element, you will use document.createElement(). If you
+// simply need to add text, you will use document.createTextNode().
+// ***********************************************************************
+// * TODO (8): Create a text node called tnStudentId and add the studentId to it.
+            let tnStudentId = document.createTextNode(studentId);
+// "studentId" is at the top of the script, and it is set to 1 (initially):
+// * TODO (9): Create a text node called tnFirstName and add the first name to it:
+            let tnFirstName = document.createTextNode(firstName);
+// * TODO (10): Create a text node called tnLastName and add the last name to it:
+            let tnLastName = document.createTextNode(lastName);
+// * TODO (11): Create a table data cell (td) called tdStudentId:
+            let tdStudentId = document.createElement("td");
+// * TODO (12): Add tnStudentId (number) to tdStudentId (table data cell):
+            tdStudentId.appendChild(tnStudentId);
+// * TODO (13): Create a table data cell (td) called tdFirstName:
+            let tdFirstName = document.createElement("td");
+// * TODO (14): Add tnFirstName (string) to tdFirstName (table data cell):
+            tdFirstName.appendChild(tnFirstName);
+// * TODO (15): Create a table data cell (td) called tdLastName:
+            let tdLastName = document.createElement("td");
+// * TODO (16): Add tnLastName to tdLastName:
+            tdLastName.appendChild(tnLastName);
+// * TODO (17): Create a table row variable called tr:
+            let tr = document.createElement("tr");
+// * TODO (18): Add tdStudentId to table row (tr):
+            tr.appendChild(tdStudentId);
+// * TODO (19): Add tdFirstName to table row (tr):
+            tr.appendChild(tdFirstName);
+// * TODO (20): Add tdLastName to table row (tr):
+            tr.appendChild(tdLastName);
+// * TODO (21): Add tr to tbody:
+            tbody.appendChild(tr);
+// * TODO (22): Increment student_id by 1 :
+            studentId++;
+// TODO (23): Reset the form so that firstName and lastName inputs are empty
+            form.reset();
+// Hint: you can call the reset() function on the form element:
+        }
+    }
+</script>
+</body>
+</html>

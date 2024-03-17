@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-sm-6 c0l-md-4 text-center mx-auto mt-5">
+        <form>
+          <div class="form-group">
+            <label for="name">Name</label>
+              <input type="text" class="form-control" id="name" placeholder="Name">
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" class="form-control" id="email" placeholder="Email">
+          </div>
+          <div class="form-group">
+            <label for="comments">Comments</label>
+            <input type="text" class="form-control" id="comments" placeholder="Comments">
+          </div>
+          <button id="btnSubmit" type="button" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+<script>
+  var name, email, comments, btnSubmit;
+  window.addEventListener("DOMContentLoaded",(e)=>{
+    name = document.getElementById("name");
+    email = document.getElementById("email");
+    comments = document.getElementById("comments");
+    btnSubmit =document.getElementById("btnSubmit");
+
+    btnSubmit.addEventListener("click",(e)=>{
+      //alert("click");
+      var name = document.getElementById("name").value;
+      var email = document.getElementById("email").value;
+      var comments = document.getElementById("comments").value;
+
+      var comment={};
+      comment.name = name;
+      comment.email = email;
+      comment.comments = comments;
+
+      fetch("/comments",{
+        method: "POST",
+        body: JSON.stringify(comment),
+        headers:{"Content-Type": "application/json"}
+      }).then((response)=>{
+        return response.json();
+      }).then((Response)=>{
+        alert(Response.messageType + " " + Response.message);
+      }).catch((error)=>{
+        alert(Response.messageType + " " + Response.message);
+      });
+    });
+  });
+</script>
+</body>
+</html>
